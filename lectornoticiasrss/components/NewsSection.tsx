@@ -13,7 +13,11 @@ const NewsSection: React.FC<NewsSectionProps> = ({ reloadNews }) => {
   useEffect(() => {
     const storedFeedData = localStorage.getItem('feedData');
     if (storedFeedData) {
-      setFeedData(JSON.parse(storedFeedData));
+      try {
+        setFeedData(JSON.parse(storedFeedData));
+      } catch (error) {
+        console.error("Error al parsear el feedData desde localStorage:", error);
+      }
     }
   }, [reloadNews]);
 
@@ -23,12 +27,15 @@ const NewsSection: React.FC<NewsSectionProps> = ({ reloadNews }) => {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {feedData?.items?.map((item, index) => (
           <NewsCard
+            owner={feedData.title || ''}
+            author={item.creator || ''}
             key={index}
-            title={item.title}
-            description={item.description || ""}
-            date={item.pubDate || ""}
-            category=""
-            url={item.link}
+            title={item.title || ''}
+            description={item.description || ''}
+            date={item.pubDate || ''}
+            category=''
+            contentSnippet={item.contentSnippet || item.summary}
+            url={item.link || ''}
           />
         ))}
       </div>

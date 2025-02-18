@@ -2,20 +2,19 @@
 import { useActionState, useEffect, useRef } from "react";
 import { addFedd } from "@/actions/feed-form-action";
 import { toast } from "sonner";
-import { RSSFeedBase } from "@/src/types/FeedItem";
 
 const FeedForm = () => {
   const ref = useRef<HTMLFormElement>(null);
   const [state, dispatch] = useActionState(addFedd, {
     errors: [],
     success: '',
-    feedData: {} as RSSFeedBase,
+    feedData: '',
   });
 
   useEffect(() => {
     if (state.success) {
       toast.success(state.success);
-      localStorage.setItem('feedData', JSON.stringify(state.feedData)); 
+      localStorage.setItem('feedData', state.feedData); 
       ref.current?.reset();
     }
 

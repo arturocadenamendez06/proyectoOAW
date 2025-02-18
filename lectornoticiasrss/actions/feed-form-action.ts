@@ -4,14 +4,10 @@ import Parser from "rss-parser";
 import { FeedFormSchema } from "@/src/schemas";
 
 type ActionStateType = {
-    errors: string[];
-    success: string;
-    feedData?: {
-      [key: string]: any;
-    } & Parser.Output<{
-      [key: string]: any;
-    }> | {};
-  };
+  errors: string[];
+  success: string;
+  feedData?: string;
+};
 
 export const addFedd = async (
   state: ActionStateType,
@@ -26,7 +22,7 @@ export const addFedd = async (
   if (!feed.success) {
     const errors = feed.error.errors.map((error) => error.message);
     return {
-      feedData: {},
+      feedData: "",
       errors,
       success: "",
     };
@@ -40,7 +36,7 @@ export const addFedd = async (
       return {
         errors: ["No se pudo acceder al feed. Verifica la URL."],
         success: "",
-        feedData: {},
+        feedData: "",
       };
     }
 
@@ -54,22 +50,25 @@ export const addFedd = async (
       return {
         errors: ["El feed no tiene una estructura válida de RSS."],
         success: "",
-        feedData: {},
+        feedData: "",
       };
     }
+
+    // Serializar el objeto jsonFeed a una cadena JSON
+    const serializedJsonFeed = JSON.stringify(jsonFeed);
 
     // TODO: Guardar el feed en la base de datos
 
     return {
       errors: [],
       success: "Feed añadido con éxito.",
-      feedData: jsonFeed,
+      feedData: serializedJsonFeed,
     };
   } catch (error) {
     return {
       errors: ["Ocurrió un error al procesar el feed."],
       success: "",
-      feedData: {},
+      feedData: "",
     };
   }
 };

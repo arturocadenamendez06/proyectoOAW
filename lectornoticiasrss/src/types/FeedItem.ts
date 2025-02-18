@@ -4,7 +4,9 @@ export interface RSSItem {
     link: string;
     description?: string;
     pubDate?: string;
-    // Puedes agregar más campos aquí según lo que tengan los diferentes feeds
+    contentSnippet: string;
+    summary: string;
+    // Pueden agregar más campos aquí según lo que tengan los diferentes feeds
   }
 
 export interface RSSFeedBase {
