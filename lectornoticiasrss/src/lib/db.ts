@@ -16,8 +16,10 @@ interface QueryResult {
   // Puedes agregar más propiedades según sea necesario
 }
 
-const query = (text: string, params?: any[]): Promise<QueryResult> => {
+const query = (text: string, params?: unknown[]): Promise<QueryResult> => {
   return pool.query(text, params);
 };
 
-export default { query };
+const db = { query };
+
+export default db;

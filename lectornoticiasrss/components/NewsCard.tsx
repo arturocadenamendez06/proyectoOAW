@@ -13,7 +13,7 @@ const NewsCard = ({
   title,
   description,
   date,
-  category,
+  // category,
   url,
   owner,
   author,

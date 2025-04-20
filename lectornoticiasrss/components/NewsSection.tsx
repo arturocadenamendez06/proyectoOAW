@@ -1,8 +1,8 @@
-"use client";
-import { useEffect, useState } from "react";
+'use client';
+import { useEffect, useState, useCallback } from "react";
 import { useSearchParams } from "next/navigation";
 import NewsCard from "./NewsCard";
-import { FeedData, RSSFeedBase } from "@/src/types/FeedItem";
+import { FeedData } from "@/src/types/FeedItem";
 
 interface NewsSectionProps {
   reloadNews: boolean;
@@ -12,7 +12,7 @@ const NewsSection: React.FC<NewsSectionProps> = ({ reloadNews }) => {
   const searchParams = useSearchParams();
   const [feedData, setFeedData] = useState<FeedData[]>([]);
 
-  const fetchNews = async () => {
+  const fetchNews = useCallback(async () => {
     try {
       const category = searchParams.get("category") || "";
       const orderBy = searchParams.get("orderBy") || "desc";
@@ -26,11 +26,11 @@ const NewsSection: React.FC<NewsSectionProps> = ({ reloadNews }) => {
     } catch (error) {
       console.error("Error al obtener las noticias:", error);
     }
-  };
+  }, [searchParams]);
 
   useEffect(() => {
     fetchNews();
-  }, [reloadNews, searchParams]);
+  }, [reloadNews, searchParams, fetchNews]);
 
   return (
     <section className="mt-8">

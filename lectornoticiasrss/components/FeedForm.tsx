@@ -1,4 +1,4 @@
-"use client";
+'use client';
 import { useActionState, useEffect, useRef } from "react";
 import { addFedd } from "@/actions/feed-form-action";
 import { toast } from "sonner";

@@ -1,3 +1,4 @@
+'use client';
 const Header = () => {
   return (
     <header className="bg-gradient-to-r from-primary to-secondary text-white py-16 px-8 text-center shadow-2xl">

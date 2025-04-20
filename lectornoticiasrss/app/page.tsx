@@ -1,28 +1,29 @@
-"use client"
+'use client';
+
 import FeedForm from "@/components/FeedForm";
 import FilterBar from "@/components/FilterBar";
 import Header from "@/components/header";
 import NewsSection from "@/components/NewsSection";
-import { useState } from "react";
+import { useState, Suspense } from "react";
 
-
-const Home = () => {
+export default function Home() {
   const [reloadNews, setReloadNews] = useState(false);
   const handleReloadNews = () => {
-    setReloadNews(prev => !prev);
+    setReloadNews((prev) => !prev);
   };
 
   return (
     <>
       <Header />
-      <main>
+      <main className="p-4">
         <FeedForm />
-        <FilterBar reloadNews={handleReloadNews}/>
-        <NewsSection reloadNews={reloadNews}/>
+        <Suspense fallback={<div>Cargando filtros...</div>}>
+          <FilterBar reloadNews={handleReloadNews} />
+        </Suspense>
+        <Suspense fallback={<div>Cargando noticias...</div>}>
+          <NewsSection reloadNews={reloadNews} />
+        </Suspense>
       </main>
     </>
   );
 }
-
-
-export default Home;
