@@ -9,9 +9,9 @@ const Header = () => {
         Agrega tus feeds favoritos, mantente actualizado y personaliza tu
         experiencia de lectura de noticias.
       </p>
-      <button className="mt-8 px-8 py-4 bg-accent text-white font-semibold rounded-2xl shadow-lg hover:bg-opacity-90 transition-transform transform hover:scale-110">
+      {/* <button className="mt-8 px-8 py-4 bg-accent text-white font-semibold rounded-2xl shadow-lg hover:bg-opacity-90 transition-transform transform hover:scale-110">
         Empezar Ahora
-      </button>
+      </button> */}
     </header>
   );
 };

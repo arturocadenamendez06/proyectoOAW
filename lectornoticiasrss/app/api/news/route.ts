@@ -12,7 +12,12 @@ export async function GET(req: Request) {
 
 
     const news = await NewsService.getAllNews({ category, orderBy, search });
-    return NextResponse.json(news);
+    return new NextResponse(JSON.stringify(news), {
+      headers: {
+        'Content-Type': 'application/json',
+        'Cache-Control': 'public, max-age=180, stale-while-revalidate=190',
+      },
+    });
   } catch (error) {
     console.error('Error en la API de noticias:', error);
     return NextResponse.json({ error: 'Error al obtener noticias' }, { status: 500 });
